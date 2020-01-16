@@ -13,4 +13,5 @@ import java.lang.annotation.Target;
 @Documented
 @Import({CodeGenerateConfiguration.class})
 public @interface EnableCodeGenerate {
+    String basePackage();
 }

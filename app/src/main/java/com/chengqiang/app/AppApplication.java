@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EnableCodeGenerate
+@EnableCodeGenerate(basePackage = "com.demo")
 public class AppApplication {
 
     public static void main(String[] args) {
