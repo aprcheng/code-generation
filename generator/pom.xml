@@ -7,7 +7,7 @@
     <groupId>com.chengqiang</groupId>
     <version>0.0.1-SNAPSHOT</version>
     <artifactId>generator</artifactId>
-    <packaging>pom</packaging>
+    <!--    <packaging>jar</packaging>-->
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,6 +15,7 @@
         <boot.version>2.1.0.RELEASE</boot.version>
         <lombok.version>1.18.10</lombok.version>
         <mysql.version>5.1.29</mysql.version>
+        <fastjson.version>1.2.49</fastjson.version>
     </properties>
 
     <dependencies>
@@ -23,6 +24,23 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${boot.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>${boot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <version>${boot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

@@ -8,11 +8,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @ConditionalOnWebApplication
-@ComponentScan(basePackages = {"com.chengqiang.code.generate.web"})
+@ComponentScan(basePackages = {"com.chengqiang.code.generate"})
 public class CodeGenerateConfiguration {
 
     @Configuration
-    public class WebConfig implements WebMvcConfigurer {
+    public static class WebConfig implements WebMvcConfigurer {
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
             registry.addResourceHandler("/**")
