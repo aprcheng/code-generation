@@ -1,7 +1,7 @@
 package com.chengqiang.code.generate.web;
 
 import com.alibaba.fastjson.JSON;
-import com.chengqiang.code.generate.entity.DataBase;
+import com.chengqiang.code.generate.entity.TableEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,8 +27,8 @@ public class TestController {
         String sql = "SELECT TABLE_NAME, CREATE_TIME, UPDATE_TIME, TABLE_COMMENT " +
                 "FROM information_schema.`TABLES` " +
                 "WHERE TABLE_SCHEMA = (SELECT DATABASE())";
-        BeanPropertyRowMapper<DataBase> rowMapper = new BeanPropertyRowMapper<>(DataBase.class);
-        List<DataBase> list = jdbcTemplate.query(sql, rowMapper);
+        BeanPropertyRowMapper<TableEntity> rowMapper = new BeanPropertyRowMapper<>(TableEntity.class);
+        List<TableEntity> list = jdbcTemplate.query(sql, rowMapper);
         return JSON.toJSONString(list);
     }
 }
