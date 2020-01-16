@@ -1,10 +1,10 @@
-package com.chengqiang.code.generate;
+package com.chengqiang.app;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CodeGenerateApplicationTests {
+class AppApplicationTests {
 
     @Test
     void contextLoads() {
