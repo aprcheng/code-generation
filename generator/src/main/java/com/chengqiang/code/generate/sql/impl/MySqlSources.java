@@ -17,13 +17,23 @@ public class MySqlSources implements DataBaseSources {
     }
 
     @Override
-    public List<TableEntity> queryTable() {
+    public List<TableEntity> queryTableList() {
         String sql =
                 "SELECT TABLE_NAME, CREATE_TIME, UPDATE_TIME, TABLE_COMMENT " +
                         "FROM information_schema.`TABLES` " +
                         "WHERE TABLE_SCHEMA = (SELECT DATABASE())";
         BeanPropertyRowMapper<TableEntity> rowMapper = new BeanPropertyRowMapper<>(TableEntity.class);
         return jdbcTemplate.query(sql, rowMapper);
+    }
+
+    @Override
+    public TableEntity queryTable(String tableName) {
+        String sql =
+                "SELECT TABLE_NAME, CREATE_TIME, UPDATE_TIME, TABLE_COMMENT " +
+                        "FROM information_schema.`TABLES` " +
+                        "WHERE TABLE_SCHEMA = (SELECT DATABASE()) AND TABLE_NAME = ?";
+        BeanPropertyRowMapper<TableEntity> rowMapper = new BeanPropertyRowMapper<>(TableEntity.class);
+        return jdbcTemplate.queryForObject(sql, rowMapper, tableName);
     }
 
     @Override

@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface DataBaseSources {
 
-    List<TableEntity> queryTable();
+    List<TableEntity> queryTableList();
+
+    TableEntity queryTable(String tableName);
 
     List<ColumnEntity> queryColumnByTableName(String tableName);
 }
