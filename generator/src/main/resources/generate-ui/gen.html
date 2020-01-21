@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>代码生成</title>
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-1.7.0/themes/metro/easyui.css">
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-1.7.0/themes/icon.css">
+    <script type="text/javascript" src="jquery-easyui-1.7.0/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body class="easyui-layout">
+<div data-options="region:'north',border:false," style="height:60px;padding:10px;text-align: center">
+    <p>简化开发</p>
+</div>
+<div data-options="region:'west',collapsed:false,split:true,title:'表数据'" style="width:40%;">
+    <table id="dg" title="" width="100%"></table>
+</div>
+<div data-options="region:'center',title:''">
+    <table id="dg_c" width="100%" title="列数据"></table>
+</div>
+
+<div id="search" style="display:none;">
+    <input id="tb" type="text">
+</div>
+
+<div id="win">
+    <pre id="content"></pre>
+</div>
+
+<script type="text/javascript">
+
+
+    function initSearch() {
+        $('#tb').textbox({
+            width: '150%',
+            buttonText: 'Search',
+            prompt: '表名',
+            onChange: function (newValue, oldValue) {
+                console.log(newValue)
+            }
+        })
+    };
+
+    $(function () {
+        $('#win').window({
+            title: '预览',
+            width: 600,
+            height: 500,
+            modal: true,
+            closed: true
+        });
+        initTable();
+        initSearch();
+    });
+
+    function initTable() {
+        $('#dg').datagrid({
+            url: '/easy-codding/tableList',
+            method: 'get',
+            border: false,
+            toolbar: [{
+                text: document.getElementById('search').innerHTML
+
+            }, '-', {
+                iconCls: 'icon-edit',
+                text: '代码生成',
+                handler: function () {
+
+                }
+            }, '-', {
+                iconCls: 'icon-print',
+                text: '代码生成预览',
+                handler: function () {
+                    var row = $('#dg').datagrid('getSelected');
+                    console.log(row)
+                    $.get("/easy-codding/preview/" + row.tableName, function (result) {
+                        $("#content").text(result.model);
+                        $('#win').window('open');
+                    });
+                }
+            }],
+            fitColumns: true,
+            singleSelect: true,
+            columns: [[
+                {field: 'tableName', title: '表名', align: 'center', width: '50%'},
+                {field: 'tableComment', title: '备注', align: 'center', width: '50%'}
+            ]],
+            onClickRow: function (index, row) {
+                console.log(row);
+                initColumnTable(row.tableName);
+            },
+            onLoadSuccess: function (data) {
+                console.log(data);
+                if (data.total > 0) {
+                    $('#dg').datagrid('selectRow', 0);
+                    initColumnTable(data.rows[0].tableName);
+                }
+            }
+        });
+    }
+
+    function initColumnTable(tableName) {
+        $('#dg_c').datagrid({
+            url: '/easy-codding/column/' + tableName,
+            method: 'get',
+            border: false,
+            fitColumns: true,
+            singleSelect: true,
+            columns: [[
+                {field: 'ordinalPosition', title: '排序号', width: '10%', align: 'center'},
+                {field: 'columnName', title: '字段名', width: '30%', align: 'center'},
+                {field: 'dataType', title: '数据类型', width: '30%', align: 'center'},
+                {field: 'columnComment', title: '备注', width: '30%', align: 'center'}
+            ]],
+            onClickRow: function (index, row) {
+                console.info(index);
+                console.info(row);
+            }
+        });
+    }
+
+</script>
+</body>
+</html>
