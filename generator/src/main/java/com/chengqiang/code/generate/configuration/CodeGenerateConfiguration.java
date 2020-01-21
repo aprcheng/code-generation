@@ -25,7 +25,6 @@ public class CodeGenerateConfiguration {
 
     @Configuration
     public static class WebConfig implements WebMvcConfigurer {
-        @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
             registry.addResourceHandler("/**")
                     .addResourceLocations("classpath:/generate-ui/");

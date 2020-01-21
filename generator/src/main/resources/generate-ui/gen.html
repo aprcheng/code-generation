@@ -74,8 +74,8 @@
                 handler: function () {
                     var row = $('#dg').datagrid('getSelected');
                     console.log(row)
-                    $.get("/easy-codding/preview/dao/" + row.tableName, function (result) {
-                        $("#content").text(result);
+                    $.get("/easy-codding/preview/" + row.tableName, function (result) {
+                        $("#content").text(result.model);
                         $('#win').window('open');
                     });
                 }
