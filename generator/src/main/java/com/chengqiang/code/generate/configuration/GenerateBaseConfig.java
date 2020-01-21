@@ -9,7 +9,7 @@ public class GenerateBaseConfig {
     /**
      * 基础包名
      */
-    protected Package basePackage;
+    protected String basePackageName;
     /**
      * controller 包名
      */
@@ -54,17 +54,14 @@ public class GenerateBaseConfig {
      * model模板文件名
      */
     protected String modelTemplateFileName = modelPackageShortName + templateFileSuffix;
-    /**
-     * 默认模板路径
-     */
-    protected String defaultTemplateLocation = "generate-ftl";
+
     /**
      * 用户模板路径 classpath目录下
      */
     protected String templateLocation = "generate-ftl";
 
-    public GenerateBaseConfig(Package basePackage) {
-        this.basePackage = basePackage;
+    public GenerateBaseConfig(String basePackageName) {
+        this.basePackageName = basePackageName;
     }
 
 }

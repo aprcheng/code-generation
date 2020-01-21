@@ -15,7 +15,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -46,16 +45,13 @@ public class CodeGenerateConfiguration {
     @ConditionalOnMissingBean
     @Bean("defaultGenerateBaseConfig")
     public GenerateBaseConfig defaultGenerateBaseConfig() {
-        return new GenerateBaseConfig(contextUtils.getSpringbootApplicationPackage());
+        return new GenerateBaseConfig(contextUtils.getSpringbootApplicationPackage().getName());
     }
 
     @Bean
     public freemarker.template.Configuration freemarkerConfiguration(GenerateBaseConfig generateBaseConfig) throws IOException {
         freemarker.template.Configuration configuration = new freemarker.template.Configuration(freemarker.template.Configuration.getVersion());
-        ClassPathResource classPathResource = new ClassPathResource("generate-ftl");
-        if (StringUtils.hasText(generateBaseConfig.getTemplateLocation())) {
-            classPathResource = new ClassPathResource(generateBaseConfig.getTemplateLocation());
-        }
+        ClassPathResource classPathResource = new ClassPathResource(generateBaseConfig.getTemplateLocation());
         configuration.setDirectoryForTemplateLoading(classPathResource.getFile());
         configuration.setDefaultEncoding(StandardCharsets.UTF_8.name());
         return configuration;

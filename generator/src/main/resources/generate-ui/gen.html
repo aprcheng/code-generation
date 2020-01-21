@@ -25,7 +25,17 @@
 </div>
 
 <div id="win">
-    <pre id="content"></pre>
+    <div id="tt" class="easyui-tabs" data-options="fit:true">
+        <div title="model">
+            <pre id="model_content"></pre>
+        </div>
+        <div title="dao">
+            <pre id="dao_content"></pre>
+        </div>
+        <div title="service">
+            <pre id="service_content"></pre>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -48,6 +58,7 @@
             width: 600,
             height: 500,
             modal: true,
+            collapsible: false,
             closed: true
         });
         initTable();
@@ -73,9 +84,11 @@
                 text: '代码生成预览',
                 handler: function () {
                     var row = $('#dg').datagrid('getSelected');
-                    console.log(row)
+                    console.log(row);
                     $.get("/easy-codding/preview/" + row.tableName, function (result) {
-                        $("#content").text(result.model);
+                        $("#model_content").text(result.model);
+                        $("#dao_content").text(result.dao);
+                        $("#service_content").text(result.model);
                         $('#win').window('open');
                     });
                 }

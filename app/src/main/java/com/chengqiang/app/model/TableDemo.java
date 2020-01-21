@@ -1,11 +1,19 @@
-package generate-ftl;
+package com.chengqiang.app.model;
 
+import com.chengqiang.code.generate.test.BaseModel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import lombok.Data;
 
-@Data
-public class TableDemo {
+@Setter
+@Getter
+@ToString
+public class TableDemo extends BaseModel implements Cloneable, Serializable {
+
     /**
      * ID
      */
@@ -40,5 +48,5 @@ public class TableDemo {
      * 更新时间
      */
     private Date rawUpdateTime;
-}
 
+}

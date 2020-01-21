@@ -48,6 +48,5 @@ public class GenerateUtils {
             ch[0] = (char) (ch[0] + 32);
         }
         return new String(ch);
-
     }
 }

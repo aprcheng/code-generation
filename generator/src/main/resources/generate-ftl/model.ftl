@@ -1,10 +1,4 @@
-<#if context.columnList?exists && context.columnList?size gt 0>
-    <#list context.columnList as column >
-        <#if column.dataType == "Date">
-            <#assign importDdate = true />
-        </#if>
-    </#list>
-</#if>
+package ${table.packageName}
 import java.io.Serializable;
 <#if importDdate?? && importDdate>
 import java.util.Date;
