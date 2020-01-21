@@ -18,6 +18,8 @@ target/
 *.iws
 *.iml
 *.ipr
+rebel.xml
+rebel-remote.xml
 
 ### NetBeans ###
 /nbproject/private/

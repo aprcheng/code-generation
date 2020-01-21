@@ -16,27 +16,24 @@ public class MySqlSources implements DataBaseSources {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
     public List<TableEntity> queryTableList() {
         String sql =
                 "SELECT TABLE_NAME, CREATE_TIME, UPDATE_TIME, TABLE_COMMENT " +
                         "FROM information_schema.`TABLES` " +
                         "WHERE TABLE_SCHEMA = (SELECT DATABASE())";
-        BeanPropertyRowMapper<TableEntity> rowMapper = new BeanPropertyRowMapper<>(TableEntity.class);
+        BeanPropertyRowMapper<TableEntity> rowMapper = new BeanPropertyRowMapper(TableEntity.class);
         return jdbcTemplate.query(sql, rowMapper);
     }
 
-    @Override
     public TableEntity queryTable(String tableName) {
         String sql =
                 "SELECT TABLE_NAME, CREATE_TIME, UPDATE_TIME, TABLE_COMMENT " +
                         "FROM information_schema.`TABLES` " +
                         "WHERE TABLE_SCHEMA = (SELECT DATABASE()) AND TABLE_NAME = ?";
-        BeanPropertyRowMapper<TableEntity> rowMapper = new BeanPropertyRowMapper<>(TableEntity.class);
+        BeanPropertyRowMapper<TableEntity> rowMapper = new BeanPropertyRowMapper(TableEntity.class);
         return jdbcTemplate.queryForObject(sql, rowMapper, tableName);
     }
 
-    @Override
     public List<ColumnEntity> queryColumnByTableName(String tableName) {
         String sql =
                 "SELECT  DISTINCT a.TABLE_SCHEMA, " +
@@ -58,7 +55,7 @@ public class MySqlSources implements DataBaseSources {
                         "WHERE  a.TABLE_SCHEMA = (SELECT DATABASE()) " +
                         "AND a.TABLE_NAME = ? " +
                         "ORDER BY a.ORDINAL_POSITION";
-        BeanPropertyRowMapper<ColumnEntity> rowMapper = new BeanPropertyRowMapper<>(ColumnEntity.class);
+        BeanPropertyRowMapper<ColumnEntity> rowMapper = new BeanPropertyRowMapper(ColumnEntity.class);
         return jdbcTemplate.query(sql, rowMapper, tableName);
     }
 }
