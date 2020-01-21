@@ -29,15 +29,15 @@ public class ContextUtils {
 //    }
 
     /**
-     * 获取第一个被SpringBootApplication注解的包名
+     * 获取第一个被SpringBootApplication注解的包
      *
      * @return String
      */
-    public String getSpringbootApplicationPackage() {
+    public Package getSpringbootApplicationPackage() {
         Map<String, Object> map = applicationContext.getBeansWithAnnotation(SpringBootApplication.class);
         String firstBeanName = map.keySet().iterator().next();
         Class<?> application = applicationContext.getBean(firstBeanName).getClass();
-        return application.getPackage().getName();
+        return application.getPackage();
     }
 
     /**

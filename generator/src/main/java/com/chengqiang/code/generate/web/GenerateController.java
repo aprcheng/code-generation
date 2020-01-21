@@ -1,13 +1,12 @@
 package com.chengqiang.code.generate.web;
 
 import com.chengqiang.code.generate.configuration.GenerateBaseConfig;
-import com.chengqiang.code.generate.context.GenerateContext;
 import com.chengqiang.code.generate.entity.ColumnEntity;
 import com.chengqiang.code.generate.entity.TableEntity;
 import com.chengqiang.code.generate.sql.impl.MySqlSources;
 import com.chengqiang.code.generate.utils.FreemarkerTool;
+import com.chengqiang.code.generate.vo.TableVo;
 import freemarker.template.Configuration;
-import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,21 +58,10 @@ public class GenerateController {
     }
 
     @GetMapping("/preview/{tableName}")
-    public Map<String, String> previewDao(@PathVariable String tableName) throws Exception {
-        TableEntity tableEntity = new MySqlSources(jdbcTemplate).queryTable(tableName);
+    public Map<String, String> previewDao(@PathVariable String tableName) {
         List<ColumnEntity> columnEntities = new MySqlSources(jdbcTemplate).queryColumnByTableName(tableName);
-        GenerateContext context = new GenerateContext(generateBaseConfig, tableEntity, columnEntities);
-
-        // code genarete
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("context", context);
-        // result
-        Map<String, String> result = new HashMap<String, String>();
-        result.put("dao",freemarkerTool.processString("dao.ftl",params));
-        result.put("service",freemarkerTool.processString("service.ftl",params));
-        result.put("service_impl",freemarkerTool.processString("service_impl.ftl",params));
-        result.put("controller",freemarkerTool.processString("controller.ftl",params));
-        result.put("model",freemarkerTool.processString("model.ftl",params));
-        return result;
+        TableVo tableVo = TableVo.convert(generateBaseConfig.getBasePackage().getName(), columnEntities);
+        log.info("tableVo={}", tableVo);
+        return new HashMap<>();
     }
 }

@@ -9,6 +9,18 @@ import lombok.ToString;
 @ToString
 public class ColumnEntity {
     /**
+     * 数据库名
+     */
+    private String tableSchema;
+    /**
+     * 数据库名
+     */
+    private String tableComment;
+    /**
+     * 表名
+     */
+    private String tableName;
+    /**
      * 字段名
      */
     private String columnName;

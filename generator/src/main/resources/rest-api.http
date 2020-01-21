@@ -1,4 +1,4 @@
-GET http://localhost:8081/easy-codding/preview/dao/table_demo
+GET http://localhost:8081/easy-codding/preview/table_demo
 Accept: */*
 Cache-Control: no-cache
 
