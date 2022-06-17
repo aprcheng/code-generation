@@ -15,7 +15,7 @@
         <boot.version>2.1.0.RELEASE</boot.version>
         <lombok.version>1.18.10</lombok.version>
         <mysql.version>5.1.29</mysql.version>
-        <fastjson.version>1.2.49</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <freemarker.version>2.3.23</freemarker.version>
     </properties>
 
