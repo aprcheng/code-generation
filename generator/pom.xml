@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <boot.version>2.1.0.RELEASE</boot.version>
+        <boot.version>2.5.15</boot.version>
         <lombok.version>1.18.10</lombok.version>
         <mysql.version>5.1.29</mysql.version>
         <fastjson.version>1.2.49</fastjson.version>
